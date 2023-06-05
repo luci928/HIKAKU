@@ -1,0 +1,35 @@
+#include "resource.h"
+#include <windows.h>
+
+ 
+BOOL CALLBACK fVentana1(HWND,UINT,WPARAM,LPARAM);
+
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
+	PWSTR pCmdLine, int nCmdShow)
+{   
+	HWND hVentana1 = CreateDialogW(hInst,MAKEINTRESOURCE(DLG_VENTANA1),NULL,CALLBACK);
+
+
+	MSG msg;
+
+	ZeroMemory(&msg, sixeof(MSG));
+
+	ShowWindow(hVentana1, SW_SHOW);
+
+	while (GetMessage(&msg, NULL, NULL, NULL)) {
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+	return 0;
+}  
+BOOL CALLBACK fVentana1(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+	switch (msg) {
+	case WM_CLOSE: {
+		DestroyWindow(hwnd);
+	}break;
+
+	case WM_DESTROY: {
+		PostQuitMessage(100);
+	}break;
+	}return FALSE;
+}
